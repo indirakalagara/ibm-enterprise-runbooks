@@ -12,7 +12,9 @@ import Globals from 'gatsby-theme-carbon/src/templates/Globals';
 <Tab label="Installing Cluster logging with EFK stack on OCP 4.5" open="true">
 ##Pre-reqs:
     1.	Default cluster logging installation deploys 16G of memory for both memory requests and memory limits.
+
     2.	A persistent volume is required for each Elasticsearch deployment to have one data volume per data node. On OpenShift Container Platform this is achieved using Persistent Volume Claims.
+    
         The Elasticsearch Operator names the PVCs using the Elasticsearch resource name
 
 ###Check Storage permissions:
