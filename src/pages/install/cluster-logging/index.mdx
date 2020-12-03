@@ -20,37 +20,34 @@ import Globals from 'gatsby-theme-carbon/src/templates/Globals';
 
 
 ##Installing cluster logging using the CLI
-
-    1.	Create a Namespace for the Elasticsearch Operator.
+    1. Create a Namespace for the Elasticsearch Operator.
             namespace:  openshift-operators-redhat
-    2.	Create a Namespace for the Cluster Logging Operator
+    2. Create a Namespace for the Cluster Logging Operator
             namespace: openshift-logging
-    3.	Install the Elasticsearch Operator by creating the following objects:
-            a. Create an Operator Group object YAML file (for example, eo-og.yaml) for the Elasticsearch operator:
-            b. Create a Subscription object YAML file (for example, eo-sub.yaml) to subscribe a Namespace to the Elasticsearch Operator.
-                Specify redhat-operators. If your OpenShift Container Platform cluster is installed on a restricted network, also known as a disconnected cluster, specify the name of the CatalogSource object created when you configured the Operator Lifecycle Manager (OLM).
-            c. oc create -f eo-sub.yaml
-            d. Verify the Operator installation:
+    3. Install the Elasticsearch Operator by creating the following objects:
+        a. Create an Operator Group object YAML file (for example, eo-og.yaml) for the Elasticsearch operator:
+        b. Create a Subscription object YAML file (for example, eo-sub.yaml) to subscribe a Namespace to the Elasticsearch Operator.
+            Specify redhat-operators. If your OpenShift Container Platform cluster is installed on a restricted network, also known as a disconnected cluster, specify the name of the CatalogSource object created when you configured the Operator Lifecycle Manager (OLM).
+        c. oc create -f eo-sub.yaml
+        d. Verify the Operator installation:
                 oc get csv --all-namespaces
     4. Install the Cluster Logging Operator by creating the following objects:
-            a.	Create an OperatorGroup for the Cluster Logging Operator:
-                namespace: openshift-logging 
-                targetNamespaces:
-                - openshift-logging 
-
-                    oc create -f clo-og.yaml
+        a.	Create an OperatorGroup for the Cluster Logging Operator:
+            namespace: openshift-logging 
+            targetNamespaces:
+            - openshift-logging 
+                oc create -f clo-og.yaml
 
         b.	Create a Subscription object 
-
                 namespace: openshift-logging
                 channel: "4.5" 
                 source: redhat-operators 
                 oc create -f clo-sub.yaml
 
-        c.	Verify the Operator installation.
-            There should be a Cluster Logging Operator in the openshift-logging Namespace. The Version number might be different than shown.
+            c.	Verify the Operator installation.
+                There should be a Cluster Logging Operator in the openshift-logging Namespace. The Version number might be different than shown.
 
-    5.	Create a Cluster Logging instance:
+    5. Create a Cluster Logging instance:
 
         Verify the storage class, to set in the cluster instance or leave it blank if it is default block storage 
         oc create -f clo-instance.yaml
@@ -75,10 +72,10 @@ import Globals from 'gatsby-theme-carbon/src/templates/Globals';
 
             oc exec -c elasticsearch elasticsearch-cdm-q1cotxre-1-57bdd5f94f-g7v7w -- indices
 
-    6.	Get Kibana route    
+    6. Get Kibana route    
             <img></img>
 
-    7.	To create kibana indexes, check the roles
+    7. To create kibana indexes, check the roles
 
             A user must have the cluster-admin role, the cluster-reader role, or both roles to list the infra and audit indices in Kibana.
 
